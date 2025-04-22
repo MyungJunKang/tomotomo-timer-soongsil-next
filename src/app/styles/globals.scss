@@ -1,0 +1,94 @@
+@import "normalize.css";
+@import "@styles/common.scss";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-size: rem(14);
+  --swiper-navigation-color: #008a7f;
+  --swiper-pagination-color: #008a7f;
+}
+
+button {
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  line-height: initial;
+  cursor: pointer;
+}
+input,
+textarea {
+  user-select: auto;
+  outline: none;
+  border: none;
+  padding-left: rem(10);
+}
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+li {
+  list-style: none;
+}
+.relative {
+  position: relative;
+}
+
+.flexWrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex($name, $justify, $align) {
+  .flex#{$name} {
+    display: flex;
+    justify-content: #{$justify};
+    align-items: #{$align};
+  }
+}
+
+@include flex("", _, _);
+@include flex("JustifyCenter", center, _);
+@include flex("JustifyBetween", space-between, _);
+@include flex("JustifyEvenly", space-evenly, _);
+@include flex("JustifyAround", space-around, _);
+@include flex("JustifyEnd", flex-end, center);
+@include flex("AlignCenter", _, center);
+@include flex("AlignEnd", _, flex-end);
+@include flex("StartCenter", flex-start, center);
+@include flex("EndCenter", flex-end, center);
+@include flex("BetweenCenter", space-between, center);
+@include flex("EvenlyCenter", space-evenly, center);
+@include flex("AroundCenter", space-around, center);
+@include flex("Center", center, center);
+
+@for $i from 10 to 51 {
+  .fs-#{$i} {
+    font-size: rem($i);
+  }
+}
+@for $i from 3 to 8 {
+  .fw-#{$i * 100} {
+    font-weight: $i * 100;
+  }
+}
+@for $i from 1 to 51 {
+  .gap-#{$i} {
+    gap: rem($i);
+  }
+  .mt-#{$i} {
+    margin-top: calc($i / 16 * 1rem);
+  }
+  .mb-#{$i} {
+    margin-bottom: calc($i / 16 * 1rem);
+  }
+}

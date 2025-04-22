@@ -1,0 +1,42 @@
+$cfff: #fff;
+$c000: #000;
+$c222: #222;
+$c555: #555;
+$c666: #666;
+$c999: #999;
+$cccc: #ccc;
+$cddd: #ddd;
+$ceee: #eee;
+$cb4b4b4: #b4b4b4;
+$cf5f5f5: #f5f5f5;
+$c808080: #808080;
+$c008a7f: #008a7f;
+$cfafafa: #fafafa;
+$c5d89f6: #5d89f6;
+$c4f4fff: #4f4fff;
+$cff4b40: #ff4b40;
+$cff7a1a: #ff7a1a;
+$c09b79e: #09b79e;
+$cff7070: #ff7070;
+$ce65b62: #e65b62;
+$c7d9ddb: #7d9ddb;
+$cd9d9d9: #d9d9d9;
+$cfff4f4: #fff4f4;
+$c368aed: #368aed;
+$c5caa2c: #5caa2c;
+$c32ae84: #32ae84;
+$c345dad: #345dad;
+$cc753bb: #c753bb;
+$cff7e37: #ff7e37;
+$ce9902b: #e9902b;
+$c737373: #737373;
+
+@function contentHeight($i) {
+  $contentHeight: calc(100vh - rem(149));
+
+  @return calc($contentHeight / 100 * $i);
+}
+
+@function rem($i) {
+  @return calc($i / 16 * 1rem);
+}
