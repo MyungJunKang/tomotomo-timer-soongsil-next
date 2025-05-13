@@ -90,9 +90,9 @@ export default function Login() {
         <div className={cn("flexColumn gap-24", styles.formBox)}>
           <div className={cn("flexColumn gap-8", styles.titleBox)}>
             <span className={cn("fw-600 fs-24 flexAlignCenter gap-4")}>
-              Login
+              로그인
             </span>
-            <span>Enter your email below to login to your account</span>
+            <span>이메일과 비밀번호를 입력해주세요.</span>
           </div>
           <div className={cn("flexJustifyBetween flexColumn", styles.form)}>
             <div className="flexColumn gap-24">
