@@ -49,7 +49,6 @@ const RegisterPage = () => {
                   onChange={(e) => updateRegisterObjEvent(e, "email")}
                   size="middle"
                   placeholder="이메일을 입력해주세요."
-                  status={status ? "error" : ""}
                 />
               </div>
               <div className="flexColumn gap-8">
@@ -60,7 +59,6 @@ const RegisterPage = () => {
                   onChange={(e) => updateRegisterObjEvent(e, "name")}
                   size="middle"
                   placeholder="이름을 입력해주세요."
-                  status={status ? "error" : ""}
                 />
               </div>
               <div className="flexColumn gap-8">
@@ -71,7 +69,6 @@ const RegisterPage = () => {
                   onChange={(e) => updateRegisterObjEvent(e, "nickname")}
                   size="middle"
                   placeholder="닉네임을 입력해주세요."
-                  status={status ? "error" : ""}
                 />
               </div>
               <div className="flexColumn gap-8">
@@ -82,7 +79,6 @@ const RegisterPage = () => {
                   onChange={(e) => updateRegisterObjEvent(e, "password")}
                   size="middle"
                   placeholder="비밀번호를 입력해주세요."
-                  status={status ? "error" : ""}
                 />
               </div>
             </div>
