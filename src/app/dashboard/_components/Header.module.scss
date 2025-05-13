@@ -1,0 +1,14 @@
+@import "@styles/common.scss";
+
+.wrapper {
+  width: 100vw;
+  height: rem(60);
+  overflow: hidden;
+  background: $cfff;
+  border-bottom: rem(1) solid $c000;
+  padding: 0 rem(24);
+  .titleBox {
+    color: $c000;
+    height: 100%;
+  }
+}

@@ -1,0 +1,43 @@
+@import "@styles/common.scss";
+
+.wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  background: $cfff;
+  .logoBox {
+    position: absolute;
+    top: rem(25);
+    left: rem(25);
+    color: $c000;
+  }
+  .mainBox {
+    width: 100%;
+    height: 100%;
+    color: $c000;
+    .formBox {
+      width: rem(400);
+      height: rem(435);
+      padding: rem(24);
+      border: rem(1) solid $c000;
+      border-radius: rem(8);
+      .titleBox {
+        height: rem(52);
+      }
+      .form {
+        height: calc(100% - rem(52));
+        .register {
+          .registerBtn {
+            padding: rem(4);
+            text-decoration: underline;
+            &:hover {
+              border-radius: rem(4);
+              background: rgba($c000, 0.04);
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -6,10 +6,12 @@
 }
 
 body {
+  width: 100vw;
+  height: 100vh;
+  background: $cfff;
+  color: $c000;
   margin: 0;
   font-size: rem(14);
-  --swiper-navigation-color: #008a7f;
-  --swiper-pagination-color: #008a7f;
 }
 
 button {
