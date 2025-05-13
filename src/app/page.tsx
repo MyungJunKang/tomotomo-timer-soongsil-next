@@ -5,8 +5,6 @@ import styles from "./page.module.scss";
 import cn from "classnames";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAtom } from "jotai";
-import { authAtom } from "src/state/auth";
 import { signIn } from "./services/AuthService";
 
 export default function Login() {
