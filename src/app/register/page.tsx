@@ -5,6 +5,7 @@ import styles from "./page.module.scss";
 import cn from "classnames";
 import { Button, Input } from "antd";
 import { useRouter } from "next/navigation";
+import { signUp } from "../services/AuthService";
 
 const RegisterPage = () => {
   const router = useRouter();
@@ -27,9 +28,13 @@ const RegisterPage = () => {
 
   const updateRegisterObjEvent = (
     e: ChangeEvent<HTMLInputElement>,
-    key: "email" | "password" | "nickname" | "name"
+    key: "email" | "password" | "nickName" | "name"
   ) => {
     setRegisterObj({ ...registerObj, [key]: e.target.value });
+  };
+
+  const setRegisterEvent = () => {
+    signUp(registerObj).then(() => router.push("/"));
   };
 
   return (
@@ -45,6 +50,7 @@ const RegisterPage = () => {
               <div className="flexColumn gap-8">
                 <span>이메일</span>
                 <Input
+                  type="text"
                   value={registerObj.email}
                   onChange={(e) => updateRegisterObjEvent(e, "email")}
                   size="middle"
@@ -54,8 +60,8 @@ const RegisterPage = () => {
               <div className="flexColumn gap-8">
                 <span>이름</span>
                 <Input
-                  type="password"
-                  value={registerObj.password}
+                  type="text"
+                  value={registerObj.name}
                   onChange={(e) => updateRegisterObjEvent(e, "name")}
                   size="middle"
                   placeholder="이름을 입력해주세요."
@@ -64,9 +70,9 @@ const RegisterPage = () => {
               <div className="flexColumn gap-8">
                 <span>닉네임</span>
                 <Input
-                  type="password"
-                  value={registerObj.password}
-                  onChange={(e) => updateRegisterObjEvent(e, "nickname")}
+                  type="text"
+                  value={registerObj.nickName}
+                  onChange={(e) => updateRegisterObjEvent(e, "nickName")}
                   size="middle"
                   placeholder="닉네임을 입력해주세요."
                 />
@@ -92,7 +98,7 @@ const RegisterPage = () => {
                   로그인
                 </button>
               </div>
-              <Button color="default" onClick={() => {}}>
+              <Button color="default" onClick={() => setRegisterEvent()}>
                 회원가입
               </Button>
             </div>

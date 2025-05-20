@@ -6,6 +6,7 @@ import cn from "classnames";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "./services/AuthService";
+import { AxiosResponse } from "axios";
 
 export default function Login() {
   const router = useRouter();
@@ -33,10 +34,12 @@ export default function Login() {
     const { userEmail, password } = loginObj;
     if (userEmail.length > 0 && password.length > 0) {
       signIn({ email: userEmail, password: password })
-        .then((res) => {
-          const { data, success } = res;
+        .then((res: AxiosResponse) => {
+          const response = res.data;
+          const { success } = response;
+          const { accessToken } = response.data;
           if (success) {
-            document.cookie = `token=${data.accessToken}; path=/; Secure; HttpOnly;`;
+            document.cookie = `token=${accessToken}; path=/; Secure; HttpOnly;`;
             router.push("/dashboard");
           } else {
             setStatus(true);
@@ -57,30 +60,6 @@ export default function Login() {
       }, 3000);
     }
   };
-
-  // const handleRegisterEvent = () => {
-  //   const myHeaders = new Headers();
-  //   myHeaders.append("Content-Type", "application/json");
-
-  //   const raw = JSON.stringify({
-  //     email: "test@naver.com",
-  //     password: "123123123",
-  //     nickName: "강명준",
-  //     name: "강명준",
-  //   });
-
-  //   const requestOptions = {
-  //     method: "POST",
-  //     headers: myHeaders,
-  //     body: raw,
-  //     redirect: "follow",
-  //   };
-
-  //   fetch("http://192.168.81.210:8080/api/auth/register", requestOptions)
-  //     .then((response) => response.text())
-  //     .then((result) => console.log(result))
-  //     .catch((error) => console.log("error", error));
-  // };
 
   return (
     <div className={styles.wrapper}>
