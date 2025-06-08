@@ -1,7 +1,12 @@
 @import "normalize.css";
 @import "@styles/common.scss";
 
+:root {
+  --font-gmarket-sans: "Gmarket Sans", sans-serif;
+}
+
 * {
+  font-family: var(--font-gmarket-sans);
   box-sizing: border-box;
 }
 

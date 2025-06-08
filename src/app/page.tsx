@@ -5,7 +5,7 @@ import styles from "./page.module.scss";
 import cn from "classnames";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import { signIn } from "./services/AuthService";
+import { signIn } from "../services/AuthService";
 import { AxiosResponse } from "axios";
 
 export default function Login() {
@@ -32,14 +32,16 @@ export default function Login() {
 
   const handleLogin = async () => {
     const { userEmail, password } = loginObj;
+
     if (userEmail.length > 0 && password.length > 0) {
       signIn({ email: userEmail, password: password })
         .then((res: AxiosResponse) => {
           const response = res.data;
           const { success } = response;
-          const { accessToken } = response.data;
-          if (success) {
-            document.cookie = `token=${accessToken}; path=/; Secure; HttpOnly;`;
+          const { accessToken, refreshToken } = response.data;
+          if (success && accessToken && refreshToken) {
+            localStorage.setItem("token", accessToken);
+            localStorage.setItem("refreshToken", refreshToken);
             router.push("/dashboard");
           } else {
             setStatus(true);
@@ -63,9 +65,9 @@ export default function Login() {
 
   return (
     <div className={styles.wrapper}>
-      <div className={cn("fs-18 fw-600", styles.logoBox)}>Tomotomo</div>
+      <div className={cn("fs-18 fw-600", styles.logoBox)}>TOMOTOMO</div>
       <div className={cn("flexCenter flexColumn gap-36", styles.mainBox)}>
-        <div className="flexCenter fw-600 fs-30">Welcome, Tomotomo</div>
+        <div className="flexCenter fw-600 fs-30">Welcome, TOMOTOMO!</div>
         <div className={cn("flexColumn gap-24", styles.formBox)}>
           <div className={cn("flexColumn gap-8", styles.titleBox)}>
             <span className={cn("fw-600 fs-24 flexAlignCenter gap-4")}>

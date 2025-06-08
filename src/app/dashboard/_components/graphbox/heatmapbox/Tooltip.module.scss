@@ -1,0 +1,9 @@
+@import "@styles/common.scss";
+
+.wrapper {
+  background: #666;
+  padding: rem(12);
+  color: $cfff;
+  border-radius: rem(8);
+  box-shadow: 0 rem(10) rem(30) rgba(0, 0, 0, 0.1);
+}

@@ -1,61 +1,23 @@
 @import "@styles/common.scss";
 
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.wrapper {
+  position: relative;
   width: 100%;
   height: calc(100% - rem(60));
-  background: $cfff;
-}
-
-.timer {
-  width: rem(520);
-  height: rem(440);
-  text-align: center;
-  background: $cfff;
-  padding: rem(80);
-  border-radius: rem(16);
-  box-shadow: 0 rem(10) rem(30) rgba(0, 0, 0, 0.1);
-  .completedText {
-    height: 100%;
-    color: $c000;
+  background: $cf5f5f5;
+  display: grid;
+  grid-template-rows: rem(160) 1fr;
+  padding: rem(16);
+  .timerBox {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
   }
-  .time {
-    font-size: rem(120);
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: $c000;
+  .graphBox {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-.controls {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
-}
-
-.input {
-  width: 60px;
-  padding: 6px 8px;
-  font-size: 18px;
-  text-align: center;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-
-.button {
-  padding: 8px 16px;
-  font-size: 16px;
-  background-color: #0070f3;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background-color: #0059c9;
-  }
+.layoutPortal {
+  position: fixed;
 }

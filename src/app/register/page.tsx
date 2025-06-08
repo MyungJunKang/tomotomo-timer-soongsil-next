@@ -5,7 +5,7 @@ import styles from "./page.module.scss";
 import cn from "classnames";
 import { Button, Input } from "antd";
 import { useRouter } from "next/navigation";
-import { signUp } from "../services/AuthService";
+import { signUp } from "../../services/AuthService";
 
 const RegisterPage = () => {
   const router = useRouter();

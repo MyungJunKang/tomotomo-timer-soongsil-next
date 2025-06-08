@@ -12,3 +12,10 @@ export const signUp = async (body: {
 }) => {
   return await fetchInstance.post("/api/auth/register", body);
 };
+
+export const reissueToken = async () => {
+  const refreshToken = localStorage.getItem("refreshToken");
+  return await fetchInstance.post("/api/auth/refresh", {
+    refreshToken,
+  });
+};

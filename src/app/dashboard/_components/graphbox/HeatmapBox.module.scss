@@ -1,0 +1,29 @@
+@import "@styles/common.scss";
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  background: $cfff;
+  padding: rem(24);
+  border: rem(1) solid $ceee;
+  border-radius: rem(16);
+  box-shadow: 0 rem(10) rem(30) rgba(0, 0, 0, 0.1);
+  .titleBox {
+    width: 100%;
+    height: rem(24);
+  }
+  :global {
+    .react-calendar-heatmap .color-scale-1 {
+      fill: #d6e685;
+    }
+    .react-calendar-heatmap .color-scale-2 {
+      fill: #8cc665;
+    }
+    .react-calendar-heatmap .color-scale-3 {
+      fill: #44a340;
+    }
+    .react-calendar-heatmap .color-scale-4 {
+      fill: #1e6823;
+    }
+  }
+}

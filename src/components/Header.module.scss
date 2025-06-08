@@ -1,0 +1,31 @@
+@import "@styles/common.scss";
+
+.wrapper {
+  width: 100vw;
+  height: rem(60);
+  overflow: hidden;
+  background: $cfff;
+  border-bottom: rem(1) solid $cddd;
+  .titleBox {
+    color: $c000;
+    height: 100%;
+    border-right: rem(1) solid $cddd;
+    padding: 0 rem(24);
+  }
+  .routeBox {
+    padding: 0 rem(24);
+    .route {
+      padding: rem(8);
+      border-radius: rem(4);
+      text-decoration: none;
+      color: $c000;
+      transition: 0.2s ease-in;
+      &:hover {
+        background: rgba($c000, 0.04);
+      }
+      &.active {
+        background: rgba($c000, 0.08);
+      }
+    }
+  }
+}

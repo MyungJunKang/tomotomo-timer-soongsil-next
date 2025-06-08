@@ -1,0 +1,33 @@
+@import "@styles/common.scss";
+
+.wrapper {
+  width: 100%;
+  height: calc(100% - rem(60));
+  background: $cf5f5f5;
+  .timer {
+    width: rem(520);
+    height: rem(480);
+    text-align: center;
+    background: $cfff;
+    padding: rem(80);
+    border: rem(1) solid $ceee;
+    border-radius: rem(16);
+    box-shadow: 0 rem(10) rem(30) rgba(0, 0, 0, 0.1);
+    .completedText {
+      height: rem(24);
+      color: $c000;
+    }
+    .time {
+      font-size: rem(120);
+      font-weight: bold;
+      margin-bottom: rem(20);
+      color: $c000;
+    }
+  }
+  .controls {
+    display: flex;
+    gap: rem(10);
+    justify-content: center;
+    align-items: center;
+  }
+}

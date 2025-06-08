@@ -15,3 +15,11 @@ export const modalPortalAtom = atom<PortalType>({
   left: 0,
   zIndex: 9,
 });
+
+export const layoutPortalAtom = atom<PortalType>({
+  type: "",
+  state: false,
+  top: 0,
+  left: 0,
+  zIndex: 9,
+});

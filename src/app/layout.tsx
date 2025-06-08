@@ -3,15 +3,25 @@ import localFont from "next/font/local";
 import "@styles/globals.scss";
 import AntdStyledComponentProvider from "src/utils/provider/AntdStyledComponentProvider";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const gmarketSans = localFont({
+  src: [
+    {
+      path: "./fonts/GmarketSansLight.otf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "./fonts/GmarketSansMedium.otf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "./fonts/GmarketSansBold.otf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-gmarket-sans",
 });
 
 export const metadata: Metadata = {
@@ -27,9 +37,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <AntdStyledComponentProvider>
-        <body className={`${geistSans.variable} ${geistMono.variable}`}>
-          {children}
-        </body>
+        <body className={`${gmarketSans.variable}`}>{children}</body>
       </AntdStyledComponentProvider>
     </html>
   );
