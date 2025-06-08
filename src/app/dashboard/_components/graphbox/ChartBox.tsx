@@ -1,7 +1,7 @@
 import styles from "./ChartBox.module.scss";
 import cn from "classnames";
 import EChartsReact from "echarts-for-react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { EChart } from "src/components/Chart";
 import { TimerRecordType } from "src/types/TimerTypes";
 import dayjs from "dayjs";
@@ -69,7 +69,7 @@ export const ChartBox = ({ timerRecordList }: Props) => {
     return seriesMap;
   };
 
-  const getChartInfo = () => {
+  const getChartInfo = useCallback(() => {
     const seriesMap = processChartData(timerRecordList);
 
     const allDatesSet = new Set<string>();
@@ -81,7 +81,7 @@ export const ChartBox = ({ timerRecordList }: Props) => {
     const series: SeriesType[] = [];
 
     Object.entries(seriesMap).forEach(
-      ([_, { taskName, dates, completedRoutines, totalTimes }]) => {
+      ([, { taskName, dates, completedRoutines, totalTimes }]) => {
         const dateToIndex = Object.fromEntries(dates.map((d, i) => [d, i]));
 
         const completedRoutineSeries = sortedDates.map((date) =>
@@ -163,11 +163,11 @@ export const ChartBox = ({ timerRecordList }: Props) => {
       ],
       series,
     });
-  };
+  }, [timerRecordList]);
 
   useEffect(() => {
     getChartInfo();
-  }, []);
+  }, [getChartInfo]);
 
   return (
     <div className={cn("flexColumn flexJustifyBetween gap-16", styles.wrapper)}>

@@ -21,14 +21,13 @@ export const ModalPortal = ({ autoClose = true, children }: Props) => {
     typeof document !== "undefined" && document.getElementById("modal");
 
   useEffect(() => {
+    const handleCloseEvent = (e: MouseEvent) => {
+      if (!ref.current?.contains(e.target as Node) && autoClose)
+        setModalPortalInfo({ ...modalPortalInfo, type: "", state: false });
+    };
     document.addEventListener("mousedown", handleCloseEvent);
     return () => document.removeEventListener("mousedown", handleCloseEvent);
-  }, []);
-
-  const handleCloseEvent = (e: MouseEvent) => {
-    if (!ref.current?.contains(e.target as Node) && autoClose)
-      setModalPortalInfo({ ...modalPortalInfo, type: "", state: false });
-  };
+  }, [autoClose, modalPortalInfo, setModalPortalInfo]);
 
   return (
     <>

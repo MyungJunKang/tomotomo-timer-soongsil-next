@@ -16,14 +16,14 @@ export const LayoutPortal = ({ children, autoClose = true }: Props) => {
     typeof document !== "undefined" && document.getElementById("layoutportal");
 
   useEffect(() => {
+    const handleCloseEvent = (e: MouseEvent) => {
+      if (!ref.current?.contains(e.target as Node) && autoClose)
+        setLayoutPortalInfo({ ...layoutPortalInfo, type: "", state: false });
+    };
+
     document.addEventListener("mousedown", handleCloseEvent);
     return () => document.removeEventListener("mousedown", handleCloseEvent);
-  }, []);
-
-  const handleCloseEvent = (e: MouseEvent) => {
-    if (!ref.current?.contains(e.target as Node) && autoClose)
-      setLayoutPortalInfo({ ...layoutPortalInfo, type: "", state: false });
-  };
+  }, [autoClose, layoutPortalInfo, setLayoutPortalInfo]);
 
   return (
     <>

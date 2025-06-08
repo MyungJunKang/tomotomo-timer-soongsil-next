@@ -2,7 +2,6 @@ import { TimerRecordType } from "src/types/TimerTypes";
 import styles from "./TimerBox.module.scss";
 import cn from "classnames";
 import { formatMinutesToHourMinute } from "src/utils/funcs/formatMinutesToHourMinute";
-import dayjs from "dayjs";
 
 interface Props {
   timerRecordList: TimerRecordType[];

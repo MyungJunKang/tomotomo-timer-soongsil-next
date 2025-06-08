@@ -8,30 +8,22 @@ import dayjs from "dayjs";
 import { TodayFocusTimeBox } from "./_components/timerbox/TodayFocusTimeBox";
 import { TaskFocusTimeBox } from "./_components/timerbox/TaskFocusTimeBox";
 import { HeatmapBox } from "./_components/graphbox/HeatmapBox";
-import { useEffect, useState } from "react";
 import { DateType } from "src/types/CommonTypes";
 import { useAtomValue } from "jotai";
 import { layoutPortalAtom } from "src/states/modal";
-import { getTimerStats } from "src/services/TimerService";
 import { ChartBox } from "./_components/graphbox/ChartBox";
 
 const DashboardPage = () => {
   const layoutPortalInfo = useAtomValue(layoutPortalAtom);
-  const [date, setDate] = useState<DateType>({
+  const date: DateType = {
     start: dayjs().subtract(6, "month"),
     end: dayjs(),
-  });
+  };
   const { start, end } = date;
   const { data: timerRecordList, isLoading } = useGetTimerRecordListQuery({
     startDate: start.format("YYYY-MM-DD"),
     endDate: end.format("YYYY-MM-DD"),
   });
-
-  console.log(timerRecordList && timerRecordList);
-
-  useEffect(() => {
-    getTimerStats().then((res) => console.log(res.data.data));
-  }, []);
 
   return (
     <div className={cn("gap-16", styles.wrapper)}>

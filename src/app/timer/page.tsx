@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./page.module.scss";
 import cn from "classnames";
 import Image from "next/image";
@@ -23,14 +23,11 @@ const formatTime = (seconds: number) => {
 
 type Phase = "focus" | "rest" | "done";
 
-const FOCUS_AUDIO = new Audio("/focus.wav");
-const REST_AUDIO = new Audio("/rest.wav");
-const DONE_AUDIO = new Audio("/done.wav");
-FOCUS_AUDIO.volume = 0.8;
-REST_AUDIO.volume = 0.8;
-DONE_AUDIO.volume = 0.8;
-
 const TimerPage = () => {
+  const focusAudioRef = useRef<InstanceType<typeof Audio> | null>(null);
+  const restAudioRef = useRef<InstanceType<typeof Audio> | null>(null);
+  const doneAudioRef = useRef<InstanceType<typeof Audio> | null>(null);
+
   const [timerSetting, setTimerSetting] = useAtom(timerSettingAtom);
   const focusTime = Number(timerSetting.focusTime ?? 0);
   const restTime = Number(timerSetting.restTime ?? 0);
@@ -47,6 +44,16 @@ const TimerPage = () => {
   const [modalPortalInfo, setModalPortalInfo] = useAtom(modalPortalAtom);
 
   const setTimerRecordMutation = useSetTimerRecordMutation();
+
+  useEffect(() => {
+    focusAudioRef.current = new Audio("/focus.wav");
+    restAudioRef.current = new Audio("/rest.wav");
+    doneAudioRef.current = new Audio("/done.wav");
+
+    focusAudioRef.current.volume = 0.8;
+    restAudioRef.current.volume = 0.8;
+    doneAudioRef.current.volume = 0.8;
+  }, []);
 
   useEffect(() => {
     let animationFrameId: number;
@@ -66,7 +73,7 @@ const TimerPage = () => {
 
       if (remaining === 0 && isRunning) {
         if (phase === "focus") {
-          REST_AUDIO.play();
+          restAudioRef.current?.play();
           setPhase("rest");
           setTime(restTime * 60);
         } else if (phase === "rest") {
@@ -81,7 +88,7 @@ const TimerPage = () => {
               },
               {
                 onSuccess: () => {
-                  FOCUS_AUDIO.play();
+                  focusAudioRef.current?.play();
                   setRoutine((prev) => prev + 1);
                   setPhase("focus");
                   setTime(focusTime * 60);
@@ -99,7 +106,7 @@ const TimerPage = () => {
               },
               {
                 onSuccess: () => {
-                  DONE_AUDIO.play();
+                  doneAudioRef.current?.play();
                   setRoutine((prev) => prev + 1);
                   setPhase("done");
                   setIsRunning(false);
@@ -121,6 +128,7 @@ const TimerPage = () => {
       cancelAnimationFrame(animationFrameId);
     };
   }, [
+    setTimerRecordMutation,
     isRunning,
     phase,
     routine,
@@ -148,7 +156,7 @@ const TimerPage = () => {
       setPhase("focus");
       setTime(focusTime * 60);
     }
-    FOCUS_AUDIO.play();
+    focusAudioRef.current?.play();
     setIsRunning((prev) => !prev);
   };
 

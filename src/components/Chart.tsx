@@ -1,13 +1,13 @@
+import { EChartsOption } from "echarts";
 import ECharts from "echarts-for-react";
 import EChartsReact from "echarts-for-react";
 import { MutableRefObject } from "react";
 
 interface Props {
-  options: any;
+  options: EChartsOption;
   chartRef?:
     | MutableRefObject<ECharts | null>
-    | MutableRefObject<EChartsReact | null>
-    | any;
+    | MutableRefObject<EChartsReact | null>;
 }
 
 export const EChart = ({ options, chartRef }: Props) => {
