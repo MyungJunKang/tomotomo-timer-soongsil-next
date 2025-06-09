@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosRequestConfig } from "axios";
 
 const fetchInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.example.com",
-  timeout: 10000,
+  timeout: 30000,
   headers: {
     "Content-Type": "application/json",
   },
@@ -33,13 +33,11 @@ fetchInstance.interceptors.response.use(
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
-      // 토큰 제거
       localStorage.removeItem("token");
       localStorage.removeItem("refreshToken");
 
-      // 페이지 이동
       if (typeof window !== "undefined") {
-        window.location.replace("/"); // "/"로 강제 이동
+        window.location.replace("/");
       }
     }
 

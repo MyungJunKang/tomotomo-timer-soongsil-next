@@ -1,0 +1,30 @@
+@import "@styles/common.scss";
+
+.wrapper {
+  width: rem(320);
+  height: rem(320);
+  border-radius: rem(16);
+  box-shadow: 0 rem(10) rem(30) rgba(0, 0, 0, 0.1);
+  padding: rem(24);
+  background: $cfff;
+  .titleBox {
+    width: 100%;
+    height: rem(24);
+    flex-shrink: 0;
+  }
+
+  .feedbackBox {
+    overflow-y: auto;
+    height: calc(100% - rem(40));
+    line-height: 1.4;
+    min-height: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
+    .spinBox {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

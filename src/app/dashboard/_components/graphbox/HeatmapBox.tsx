@@ -9,6 +9,8 @@ import { useAtom } from "jotai";
 import { layoutPortalAtom } from "src/states/modal";
 import { Tooltip } from "./heatmapbox/Tooltip";
 import { useState } from "react";
+import { Button } from "antd";
+import { Feedback } from "./heatmapbox/Feedback";
 
 interface Props {
   date: DateType;
@@ -72,8 +74,22 @@ export const HeatmapBox = ({ date, timerRecordList }: Props) => {
 
   return (
     <div className={cn("flexColumn flexJustifyBetween gap-16", styles.wrapper)}>
-      <div className={cn("fw-500 fs-16 flexAlignCenter", styles.titleBox)}>
-        집중 시간 분포
+      <div className={cn("fw-500 fs-16 flexBetweenCenter", styles.titleBox)}>
+        <span>집중 시간 분포</span>
+        <Button
+          onClick={(e) => {
+            const rect: DOMRect = e.currentTarget.getBoundingClientRect();
+            setLayoutPortalInfo({
+              ...layoutPortalInfo,
+              state: true,
+              type: "feedback",
+              top: rect.top,
+              left: rect.left - 336,
+            });
+          }}
+        >
+          토모토모 피드백
+        </Button>
       </div>
       <div>
         <ReactCalendarHeatmap
@@ -116,7 +132,9 @@ export const HeatmapBox = ({ date, timerRecordList }: Props) => {
           }}
         />
       </div>
-
+      {layoutPortalInfo.type === "feedback" && layoutPortalInfo.state && (
+        <Feedback />
+      )}
       {layoutPortalInfo.type === "tooltip" &&
         layoutPortalInfo.state &&
         tooltipData && <Tooltip tooltipData={tooltipData} />}
