@@ -11,6 +11,8 @@ import { AxiosResponse } from "axios";
 export default function Login() {
   const router = useRouter();
   const [status, setStatus] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const [loginObj, setLoginObj] = useState<{
     userEmail: string;
     password: string;
@@ -24,6 +26,11 @@ export default function Login() {
     key: "userEmail" | "password"
   ) => {
     setLoginObj({ ...loginObj, [key]: e.target.value });
+
+    if (status) {
+      setStatus(false);
+      setErrorMessage("");
+    }
   };
 
   const handlePushRegisterPageEvent = () => {
@@ -45,22 +52,23 @@ export default function Login() {
             router.push("/dashboard");
           } else {
             setStatus(true);
+            setErrorMessage("로그인에 실패했습니다.");
           }
         })
         .catch(() => {
           setStatus(true);
+          setErrorMessage("이메일 또는 비밀번호가 올바르지 않습니다.");
           setLoginObj({ userEmail: "", password: "" });
-          setTimeout(() => {
-            setStatus(false);
-          }, 3000);
         });
     } else {
       setStatus(true);
-      setLoginObj({ userEmail: "", password: "" });
-      setTimeout(() => {
-        setStatus(false);
-      }, 3000);
+      setErrorMessage("이메일과 비밀번호를 입력해주세요.");
     }
+  };
+
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
   return (
@@ -99,6 +107,11 @@ export default function Login() {
                 />
               </div>
             </div>
+            {status && errorMessage && (
+              <div className={cn("fs-14", styles.errorMessage)}>
+                {errorMessage}
+              </div>
+            )}
             <div className="flexColumn gap-16">
               <div className={cn("flexJustifyEnd gap-4", styles.register)}>
                 계정이 없으신가요?
@@ -109,7 +122,15 @@ export default function Login() {
                   회원가입
                 </button>
               </div>
-              <Button color="default" onClick={handleLogin}>
+              <Button
+                disabled={
+                  loginObj.userEmail.length === 0 ||
+                  loginObj.password.length === 0 ||
+                  !isValidEmail(loginObj.userEmail)
+                }
+                color="default"
+                onClick={handleLogin}
+              >
                 로그인
               </Button>
             </div>

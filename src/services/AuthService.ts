@@ -1,7 +1,7 @@
-import fetchInstance from "src/lib/fetchInstance";
+import authInstance from "src/lib/authInstance";
 
 export const signIn = async (body: { email: string; password: string }) => {
-  return await fetchInstance.post("/api/auth/login", body);
+  return await authInstance.post("/api/auth/login", body);
 };
 
 export const signUp = async (body: {
@@ -10,12 +10,12 @@ export const signUp = async (body: {
   nickName: string;
   name: string;
 }) => {
-  return await fetchInstance.post("/api/auth/register", body);
+  return await authInstance.post("/api/auth/register", body);
 };
 
 export const reissueToken = async () => {
   const refreshToken = localStorage.getItem("refreshToken");
-  return await fetchInstance.post("/api/auth/refresh", {
+  return await authInstance.post("/api/auth/refresh", {
     refreshToken,
   });
 };

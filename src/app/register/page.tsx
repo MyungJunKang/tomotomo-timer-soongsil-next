@@ -6,6 +6,7 @@ import cn from "classnames";
 import { Button, Input } from "antd";
 import { useRouter } from "next/navigation";
 import { signUp } from "../../services/AuthService";
+import { AxiosError } from "axios";
 
 const RegisterPage = () => {
   const router = useRouter();
@@ -30,11 +31,47 @@ const RegisterPage = () => {
     e: ChangeEvent<HTMLInputElement>,
     key: "email" | "password" | "nickName" | "name"
   ) => {
-    setRegisterObj({ ...registerObj, [key]: e.target.value });
+    setRegisterObj({ ...registerObj, [key]: e.target.value.trim() });
   };
 
   const setRegisterEvent = () => {
-    signUp(registerObj).then(() => router.push("/"));
+    signUp(registerObj)
+      .then(() => router.push("/"))
+      .catch((error: unknown) => {
+        if (error instanceof AxiosError) {
+          console.log(error);
+          const { code }: { code: string } = error.response?.data;
+          switch (code) {
+            case "1002":
+              alert("유효한 이메일 형식이 아닙니다.");
+              break;
+            case "1006":
+              alert("비밀번호는 8자 이상 16자 이하로 입력해주세요.");
+              break;
+            case "1007":
+              alert(
+                "비밀번호는 영문 소문자, 숫자, 특수문자를 조합하여 8~16자여야 합니다."
+              );
+              break;
+            case "1010":
+              alert("닉네임은 2자 이상 10자 이하로 입력해주세요");
+              break;
+            case "1011":
+              alert(
+                "닉네임은 한글, 영어, 숫자의 조합만 가능하며 공백을 포함할 수 없습니다."
+              );
+              break;
+            case "1012":
+              alert("이미 사용 중인 닉네임입니다.");
+              break;
+            case "1013":
+              alert("이름을 입력해주세요.");
+              break;
+            default:
+              break;
+          }
+        }
+      });
   };
 
   return (
@@ -98,7 +135,16 @@ const RegisterPage = () => {
                   로그인
                 </button>
               </div>
-              <Button color="default" onClick={() => setRegisterEvent()}>
+              <Button
+                disabled={
+                  registerObj.email.length === 0 ||
+                  registerObj.name.length === 0 ||
+                  registerObj.nickName.length === 0 ||
+                  registerObj.password.length === 0
+                }
+                color="default"
+                onClick={() => setRegisterEvent()}
+              >
                 회원가입
               </Button>
             </div>
