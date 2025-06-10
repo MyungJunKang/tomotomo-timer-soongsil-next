@@ -1,17 +1,32 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { setTimerRecord } from "src/services/TimerService";
+import { setTimer, setTimerRecord } from "src/services/TimerService";
 
 export const useSetTimerRecordMutation = () => {
   const queryClient = useQueryClient();
-  const queryKeys = [
-    "useGetTimerHistoryListQuery",
-    "useGetTimerRecordListQuery",
-  ];
   return useMutation({
     mutationFn: setTimerRecord,
-    onSuccess: () =>
-      queryKeys.forEach((queryKey) =>
-        queryClient.refetchQueries({ queryKey: [queryKey] })
-      ),
+    onSuccess: () => {
+      queryClient.refetchQueries({
+        queryKey: ["useGetTimerHistoryListQuery"],
+      });
+      queryClient.refetchQueries({
+        queryKey: ["useGetTimerRecordListQuery"],
+      });
+    },
+  });
+};
+
+export const useSetTimerMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: setTimer,
+    onSuccess: () => {
+      queryClient.refetchQueries({
+        queryKey: ["useGetTimerHistoryListQuery"],
+      });
+      queryClient.refetchQueries({
+        queryKey: ["useGetTimerRecordListQuery"],
+      });
+    },
   });
 };

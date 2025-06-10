@@ -6,7 +6,7 @@ import { Button, Input } from "antd";
 import { useAtom, useSetAtom } from "jotai";
 import { modalPortalAtom } from "src/states/modal";
 import { timerSettingAtom } from "src/states/timer";
-import { setTimer } from "src/services/TimerService";
+import { useSetTimerMutation } from "src/query/TimerMutation";
 
 type TimerResponseType = {
   id: number;
@@ -43,6 +43,8 @@ export const SetTimerBox = () => {
     setTaskInfo({ ...taskInfo, [key]: e.target.value });
   };
 
+  const setTimerMutation = useSetTimerMutation();
+
   const handleSetTaskEvent = () => {
     const body = {
       setFocusTime: `PT${taskInfo.setFocusTime}M`,
@@ -51,16 +53,20 @@ export const SetTimerBox = () => {
       mode: "timer",
       taskName: taskInfo.taskName,
     };
-    setTimer(body).then((res) => {
-      const data: TimerResponseType = res.data.data;
-      setTimerSetting({
-        id: data.id,
-        title: data.taskName,
-        focusTime: Number(taskInfo.setFocusTime),
-        restTime: Number(taskInfo.setBreakTime),
-        routineCnt: data.routineCnt,
-      });
-      handleCloseEvent();
+    setTimerMutation.mutate(body, {
+      onSuccess: (res) => {
+        {
+          const data: TimerResponseType = res.data.data;
+          setTimerSetting({
+            id: data.id,
+            title: data.taskName,
+            focusTime: Number(taskInfo.setFocusTime),
+            restTime: Number(taskInfo.setBreakTime),
+            routineCnt: data.routineCnt,
+          });
+          handleCloseEvent();
+        }
+      },
     });
   };
 
