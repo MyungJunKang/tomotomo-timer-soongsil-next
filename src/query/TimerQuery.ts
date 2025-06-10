@@ -7,7 +7,11 @@ export const useGetTimerHistoryListQuery = () => {
     queryKey: ["useGetTimerHistoryListQuery"],
     queryFn: async () => {
       const res = await getTimerHistory();
-      return res.data.data;
+      const historyList: TimerHistoryType[] = res.data.data;
+      const filteredHistoryList = historyList.filter(
+        (history) => !history.completed
+      );
+      return filteredHistoryList;
     },
   });
 };
